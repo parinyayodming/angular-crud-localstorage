@@ -1,0 +1,149 @@
+<nav class="navbar navbar-dark bg-dark p-4">
+  <div class="container">
+    <span class="navbar-brand mb-0 h1">CRUD</span>
+    <button class="btn btn-outline-light btn-lg ms-auto" (click)="openModel()">
+      Add New +
+    </button>
+  </div>
+</nav>
+<div class="container py-5">
+  @if (studentList.length !== 0) {
+  <div class="row">
+    @for (item of studentList; track $index) {
+    <div class="col-md-4">
+      <div class="card shadow bg-body rounded">
+        <div class="card-header">
+          <div class="row">
+            <div class="col-6">
+              {{ item.name }}
+            </div>
+            <div class="col-6 text-end">
+              {{ item.mobileNo }}
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <p>{{ item.city }} , {{ item.state }} , {{ item.pincode }}</p>
+          <p>{{ item.address }}</p>
+        </div>
+        <div class="card-footer text-center">
+          <div class="row">
+            <div class="col-6">
+              <small>{{ item.email }}</small>
+            </div>
+            <div class="col-6 text-end">
+              <button
+                class="btn btn-sm btn-primary me-2"
+                (click)="onEdit(item)"
+              >
+                Edit
+              </button>
+              <button class="btn btn-sm btn-danger" (click)="onDelete(item)">
+                Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    }
+  </div>
+  } @else {
+  <div class="row">
+    <div class="col-12 p-4 text-center">
+      <p>No Record Found. Create New Record</p>
+    </div>
+  </div>
+  }
+</div>
+
+<div class="modal" id="myModal" #myModal>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Create New</h4>
+        <button type="button" class="btn-close" (click)="closeModel()"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-6 mb-3">
+            <label for="">Name</label>
+            <input
+              type="text"
+              [(ngModel)]="studentObj.name"
+              class="form-control"
+              placeholder="Name"
+            />
+          </div>
+          <div class="col-6 mb-3">
+            <label for="">Mobile No</label>
+            <input
+              type="text"
+              [(ngModel)]="studentObj.mobileNo"
+              class="form-control"
+              placeholder="Mobile"
+            />
+          </div>
+          <div class="col-6 mb-3">
+            <label for="">Email</label>
+            <input
+              type="text"
+              [(ngModel)]="studentObj.email"
+              class="form-control"
+              placeholder="Email"
+            />
+          </div>
+          <div class="col-6 mb-3">
+            <label for="">City</label>
+            <input
+              type="text"
+              [(ngModel)]="studentObj.city"
+              class="form-control"
+              placeholder="City"
+            />
+          </div>
+          <div class="col-6 mb-3">
+            <label for="">State</label>
+            <input
+              type="text"
+              [(ngModel)]="studentObj.state"
+              class="form-control"
+              placeholder="State"
+            />
+          </div>
+          <div class="col-6 mb-3">
+            <label for="">Pin Code</label>
+            <input
+              type="text"
+              [(ngModel)]="studentObj.pincode"
+              class="form-control"
+              placeholder="Pin Code"
+            />
+          </div>
+          <div class="col-12">
+            <label for="">Address</label>
+            <textarea
+              rows="3"
+              [(ngModel)]="studentObj.address"
+              class="form-control"
+            ></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" (click)="closeModel()">
+          Close
+        </button>
+        @if (studentObj.id == 0) {
+        <button type="button" class="btn btn-primary" (click)="saveStudent()">
+          Save Student
+        </button>
+        } @else {
+        <button type="button" class="btn btn-success" (click)="updateStud()">
+          Update Student
+        </button>
+        }
+      </div>
+    </div>
+  </div>
+</div>
